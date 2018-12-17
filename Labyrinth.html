@@ -208,7 +208,7 @@
 				// ga bisa load dari local komputer
                 var geometry = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
                 geometry.rotateX( - Math.PI / 2 );
-                var floorTexture = new THREE.TextureLoader().load( 'texture/floor/grass.jpg' );
+                var floorTexture = new THREE.TextureLoader().load( 'texture/floor/FloorsCheckerboard_S_Diffuse.jpg' );
                 floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
                 floorTexture.repeat.set(20, 20);
                 var material = new THREE.MeshBasicMaterial({map: floorTexture}),
