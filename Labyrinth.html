@@ -61,6 +61,10 @@
 	<body>
 		<script src="../three.js"></script>
 		<script src="../lib/examples/js/controls/PointerLockControls.js"></script>
+		<script src="../lib/examples/js/loaders/OBJLoader.js"></script>
+		<script src="../lib/examples/js/loaders/MTLLoader.js"></script>
+		<script src="../lib/examples/js/loaders/DDSLoader.js"></script>
+		<script src="loadGhost.js"></script>
 
 		<div id="blocker">
 
@@ -75,8 +79,11 @@
 		<script>
 
 			var camera, scene, renderer, controls;
-			var count = 0, pos;
-
+			var count = 0, pos, theta=0, thetaV=0, thetaVmove=0;
+			var ghostList = [];
+			var GhostFlag=[];
+			var ghost, ghost1, ghost2, ghots3, ghost4, ghost5, ghost6, ghost7,ghost8,ghost9,ghost10,ghost11,ghost12,ghost13,ghost14,ghost15,ghost16,ghost17,ghost18,ghost19,ghost20;
+			var boxFlag=0;
 			var objects = [];
 
 			var raycaster;
@@ -97,11 +104,10 @@
 			animate();
 
 			function init() {
-
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
-
+				// camera.position.y = 100;
 				scene = new THREE.Scene();
-				scene.background = new THREE.Color( 0xffffff );
+				scene.background = new THREE.Color( 0xFFFFFF );
 				scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
 
 				var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
@@ -200,6 +206,7 @@
 				document.addEventListener( 'keyup', onKeyUp, false );
 
 				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( -1, 0, -1 ), 0, 10 );
+				raycaster2 = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( -1, 0, -1 ), 0, 10 );
 
 				// floor
 
@@ -362,6 +369,8 @@
 
 				}
 
+				loadOBJ();
+				
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
@@ -411,12 +420,7 @@
 					if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0 * delta;
 					// console.log(controls.getObject().position);
 					// console.log(intersections);
-					if (count === 3) {
-						pos = controls.getObject().position;
-						count = 0;
-					}
-					// console.log(pos);
-					count++;
+					
 					if ( onObject === true ) {
 						console.log(intersections[0]);
 						console.log(count);
@@ -441,11 +445,141 @@
 					}
 
 					prevTime = time;
+				
+					// var intersect_obj = raycaster2.intersectObject( scene.children, true);
+					// var hit = intersect_obj.length > 0 ;
+					// console.log(objects);
+					// console.log(ghost2.position.z);
+					// console.log(Math.round(controls.getObject().position.z));
 
+					// console.log(between(-1, 0, 5));
+
+					if ( between(Math.round(ghost.position.z), Math.round(controls.getObject().position.z)-6, Math.round(controls.getObject().position.z)+6) && 
+					between(Math.round(ghost.position.x), Math.round(controls.getObject().position.x)-6, Math.round(controls.getObject().position.x)+6)){
+						alert('aw');
+						location.reload();
+					}
+
+					// console.log(ghostList[1].position);
+
+					for(i=0; i<ghostList.length; i++) {
+						ghostList[i].position.y = 5+(Math.sin(thetaV)*2); 
+						ghostList[i].rotation.y = theta;
+
+						if ( between(Math.round(ghostList[i].position.z), Math.round(controls.getObject().position.z)-6, Math.round(controls.getObject().position.z)+6) && 
+							between(Math.round(ghostList[i].position.x), Math.round(controls.getObject().position.x)-6, Math.round(controls.getObject().position.x)+6)){
+								alert('aw');
+								location.reload();
+							}
+					}
+
+					// ghost.position.y = 5+(Math.sin(thetaV)*2); 
+					// ghost.rotation.y = theta;
+					animateBoxGhost(ghost18, 140, 220);
+					animateBoxGhostCounter(ghost19, 60, 380);
+					moveZ(ghost2, -10, 70, 0);
+					moveX(ghost5, 190, 290, 1);
+					moveX(ghost8, 120, 240, 2);
+					moveX(ghost20, 220, 380, 3);
+					moveX(ghost21, 270, 370, 4);
+					// ghost2.position.y = 5+(Math.sin(thetaVmove)*2); 
+					// ghost2.position.z = 60+Math.round(Math.sin(theta)*80);
+
+					theta += 0.03;
+					thetaV += 0.1;
+					thetaVmove += 0.2;
 				}
 
 				renderer.render( scene, camera );
 
+			}
+
+			function between(x, min, max) {
+				return x >= min && x <= max;
+			}
+
+			function moveZ(ghost, min, max, flagIndex) {
+				if ( GhostFlag[flagIndex]==0) {
+					ghost.position.z += 0.8;
+					if (ghost.position.z >= max) {
+						GhostFlag[flagIndex] = 1;
+					}
+				}
+				if ( GhostFlag[flagIndex]==1) {
+					ghost.position.z -= 0.8;
+					if (ghost.position.z <= min) {
+						GhostFlag[flagIndex] = 0;
+					}
+				}
+			}
+
+			function moveX(ghost, min, max, flagIndex) {
+				if ( GhostFlag[flagIndex]==0) {
+					ghost.position.x += 0.8;
+					if (ghost.position.x >= max) {
+						GhostFlag[flagIndex] = 1;
+					}
+				}
+				if ( GhostFlag[flagIndex]==1) {
+					ghost.position.x -= 0.8;
+					if (ghost.position.x <= min) {
+						GhostFlag[flagIndex] = 0;
+					}
+				}
+			}
+
+			function animateBoxGhost(ghost, x, z) {
+				if (boxFlag == 0) {
+					ghost.position.z += 0.5;
+					if (z+80 == ghost.position.z) {
+						boxFlag = 1;
+					}
+				}
+				if (boxFlag == 1) {
+					ghost.position.x -= 0.5;
+					if (x-80 == ghost.position.x) {
+						boxFlag = 2;
+					}
+				}
+				if (boxFlag == 2) {
+					ghost.position.z -= 0.5;
+					if (z == ghost.position.z) {
+						boxFlag = 3;
+					}
+				}
+				if (boxFlag == 3) {
+					ghost.position.x += 0.5;
+					if (x == ghost.position.x) {
+						boxFlag = 0;
+					}
+				}
+			}
+
+			function animateBoxGhostCounter(ghost, x, z) {
+				if (boxFlag == 0) {
+					ghost.position.x += 0.5;
+					if (x+80 == ghost.position.x) {
+						boxFlag = 1;
+					}
+				}
+				if (boxFlag == 1) {
+					ghost.position.z -= 0.5;
+					if (z-80 == ghost.position.z) {
+						boxFlag = 2;
+					}
+				}
+				if (boxFlag == 2) {
+					ghost.position.x -= 0.5;
+					if (x == ghost.position.x) {
+						boxFlag = 3;
+					}
+				}
+				if (boxFlag == 3) {
+					ghost.position.z += 0.5;
+					if (z == ghost.position.z) {
+						boxFlag = 0;
+					}
+				}
 			}
 
 		</script>
