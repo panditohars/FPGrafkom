@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>three.js - pointerlock controls</title>
+		<title>LABIRIN</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -59,8 +59,8 @@
 		</style>
 	</head>
 	<body>
-		<script src="../three.js"></script>
-		<script src="../lib/examples/js/controls/PointerLockControls.js"></script>
+		<script src="../build/three.js"></script>
+		<script src="js/controls/PointerLockControls.js"></script>
 
 		<div id="blocker">
 
@@ -101,12 +101,13 @@
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 
 				scene = new THREE.Scene();
-				scene.background = new THREE.Color( 0xffffff );
+				scene.background = new THREE.Color( 'skyblue' );
 				scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
 
 				var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
 				light.position.set( 0.5, 1, 0.75 );
 				scene.add( light );
+                
 
 				controls = new THREE.PointerLockControls( camera );
 
@@ -140,22 +141,22 @@
 					switch ( event.keyCode ) {
 
 						case 38: // up
-						case 87: // w
+						//case 87: // w
 							moveForward = true;
 							break;
 
 						case 37: // left
-						case 65: // a
+						//case 65: // a
 							moveLeft = true;
 							break;
 
 						case 40: // down
-						case 83: // s
+						//case 83: // s
 							moveBackward = true;
 							break;
 
 						case 39: // right
-						case 68: // d
+						//case 68: // d
 							moveRight = true;
 							break;
 
@@ -173,22 +174,22 @@
 					switch ( event.keyCode ) {
 
 						case 38: // up
-						case 87: // w
+						//case 87: // w
 							moveForward = false;
 							break;
 
 						case 37: // left
-						case 65: // a
+						//case 65: // a
 							moveLeft = false;
 							break;
 
 						case 40: // down
-						case 83: // s
+						//case 83: // s
 							moveBackward = false;
 							break;
 
 						case 39: // right
-						case 68: // d
+						//case 68: // d
 							moveRight = false;
 							break;
 
@@ -202,8 +203,20 @@
 				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( -1, 0, -1 ), 0, 10 );
 
 				// floor
-
-				var floorGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 100, 100 );
+                
+                /*
+				// ga bisa load dari local komputer
+                var geometry = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
+                geometry.rotateX( - Math.PI / 2 );
+                var floorTexture = new THREE.TextureLoader().load( 'grass.jpg' );
+                floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+                floorTexture.repeat.set(20, 20);
+                var material = new THREE.MeshBasicMaterial({map: floorTexture}),
+                mesh = new THREE.Mesh( geometry, material );
+                scene.add( mesh );
+                */
+                
+                var floorGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 100, 100 );
 				floorGeometry.rotateX( - Math.PI / 2 );
 
 				// vertex displacement
@@ -229,7 +242,7 @@
 
 				for ( var i = 0, l = position.count; i < l; i ++ ) {
 
-					color.setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+					color.setHSL( Math.random() * 0.3 + 0.3, 0.3, Math.random() * 0.25 + 0.75 );
 					colors.push( color.r, color.g, color.b );
 
 				}
@@ -240,7 +253,7 @@
 
 				var floor = new THREE.Mesh( floorGeometry, floorMaterial );
 				scene.add( floor );
-
+                
 				// objects
 
 				var boxGeometry = new THREE.BoxBufferGeometry( 20, 40, 2 );
@@ -257,14 +270,13 @@
 				}
 
 				boxGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-				
-				//creating box
+
 
 				//outer z based warna warni
 				for ( var i = 1; i < 20; i ++ ) {
 
 					var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-					boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+					boxMaterial.color.setHSL( 0.5, 0.5, 0.5 );
 
 					var box = new THREE.Mesh( boxGeometry, boxMaterial );
 					box.position.x = i*20;
@@ -281,7 +293,7 @@
 					for ( var i = 0	; i <= 20; i ++ ) {
 						if(i == 3 || i == 7 || i == 9 || i == 12 || i == 16) continue;
 						var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-						boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+						boxMaterial.color.setRGB( 0.5 , 1.0, 1.0 );
 
 						var box = new THREE.Mesh( boxGeometry, boxMaterial );
 						box.position.x = i*20;
@@ -298,7 +310,7 @@
 				for ( var i = 0; i < 19; i ++ ) {
 
 					var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-					boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+					boxMaterial.color.setHSL( 0.4,0.5,0.3 );
 
 					var box = new THREE.Mesh( boxGeometry, boxMaterial );
 					box.position.x = i*20;
