@@ -59,8 +59,8 @@
 		</style>
 	</head>
 	<body>
-		<script src="../build/three.js"></script>
-		<script src="js/controls/PointerLockControls.js"></script>
+		<script src="../three.js"></script>
+		<script src="../lib/examples/js/controls/PointerLockControls.js"></script>
 
 		<div id="blocker">
 
@@ -198,7 +198,7 @@
 				document.addEventListener( 'keydown', onKeyDown, false );
 				document.addEventListener( 'keyup', onKeyUp, false );
 
-				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
+				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( -1, 0, -1 ), 0, 10 );
 
 				// floor
 
@@ -242,7 +242,7 @@
 
 				// objects
 
-				var boxGeometry = new THREE.BoxBufferGeometry( 20, 80, 20 );
+				var boxGeometry = new THREE.BoxBufferGeometry( 20, 40, 2 );
 				boxGeometry = boxGeometry.toNonIndexed(); // ensure each face has unique vertices
 
 				position = boxGeometry.attributes.position;
@@ -323,10 +323,12 @@
 					if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0 * delta;
 
 					if ( onObject === true ) {
-
-						velocity.y = Math.max( 0, velocity.y );
-						canJump = true;
-
+						console.log(intersections[0]);
+						// console.log(count);
+						// console.log(controls.getObject().position);
+						velocity.x=0;
+						velocity.z=0;
+						// velocity.y=0;
 					}
 
 					controls.getObject().translateX( velocity.x * delta );
