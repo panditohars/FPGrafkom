@@ -411,12 +411,7 @@
 					if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0 * delta;
 					// console.log(controls.getObject().position);
 					// console.log(intersections);
-					if (count === 3) {
-						pos = controls.getObject().position;
-						count = 0;
-					}
-					// console.log(pos);
-					count++;
+					
 					if ( onObject === true ) {
 						console.log(intersections[0]);
 						console.log(count);
