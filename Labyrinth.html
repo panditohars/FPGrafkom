@@ -232,6 +232,28 @@
 				sphere.position.z = 0;
 				scene.add( sphere );
 				
+				//box estetik
+                		var boxGeometry = new THREE.BoxBufferGeometry( 10, 10, 10 );
+				boxGeometry = boxGeometry.toNonIndexed(); 
+				position = boxGeometry.attributes.position;
+				colors = [];
+				for ( var i = 0, l = position.count; i < l; i ++ ) {
+					color.setHSL( Math.random() * 0.5 + 0.5, 0.75, Math.random() * 0.1 + 0.75 );
+					colors.push( color.r, color.g, color.b );
+				}
+				boxGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+				for ( var i = 0; i < 15; i ++ ) 
+                {
+					var boxMaterial = new THREE.MeshBasicMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
+					boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+					var box = new THREE.Mesh( boxGeometry, boxMaterial );
+					box.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
+					box.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
+					box.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
+					scene.add( box );
+					objects.push( box );
+				}
+				
 				//sky
 				var skyGeo = new THREE.SphereGeometry(100000, 25, 25); 
 				var loader  = new THREE.TextureLoader(),
@@ -246,6 +268,29 @@
 
 				// floor
 
+				// floor
+				// jpg tekstur
+
+
+				///*
+				//a
+				var geometry = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
+				geometry.rotateX( - Math.PI / 2 );
+
+				var floorTexture = new THREE.TextureLoader().load( "textures/floors/FloorsCheckerboard_S_Diffuse.jpg");
+
+				floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+
+				floorTexture.repeat.set(20, 20);
+
+				var material = new THREE.MeshBasicMaterial({map: floorTexture}), mesh = new THREE.Mesh( geometry, material );
+
+                		scene.add( mesh );
+                		//*/
+                		//a
+               			/*
+                
+                		//a
 				var floorGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 100, 100 );
 				floorGeometry.rotateX( - Math.PI / 2 );
 
@@ -283,6 +328,8 @@
 
 				var floor = new THREE.Mesh( floorGeometry, floorMaterial );
 				scene.add( floor );
+                		*/
+                		//a
 
 				// objects
 
