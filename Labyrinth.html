@@ -244,14 +244,16 @@
 				sky.material.side = THREE.BackSide;
 				scene.add(sky);
 
-				// floor
+				// 
+				
+				
                 // jpg tekstur
                 ///*
                 //a
                 var geometry = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
                 geometry.rotateX( - Math.PI / 2 );
                 
-                var floorTexture = new THREE.TextureLoader().load( "../lib/examples/textures/floors/FloorsCheckerboard_S_Diffuse.jpg");
+                var floorTexture = new THREE.TextureLoader().load( "textures/floors/FloorsCheckerboard_S_Diffuse.jpg");
                 
                 floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
                 
