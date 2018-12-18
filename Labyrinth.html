@@ -531,7 +531,7 @@
 
 						if ( between(Math.round(ghostList[i].position.z), Math.round(controls.getObject().position.z)-6, Math.round(controls.getObject().position.z)+6) && 
 							between(Math.round(ghostList[i].position.x), Math.round(controls.getObject().position.x)-6, Math.round(controls.getObject().position.x)+6)){
-								alert('aw');
+								alert('Aw!!');
 								location.reload();
 							}
 					}
@@ -551,6 +551,11 @@
 					theta += 0.03;
 					thetaV += 0.1;
 					thetaVmove += 0.2;
+					// console.log(controls.getObject().position.x);
+					if (controls.getObject().position.z > 400 && controls.getObject().position.x > 400) {
+						alert('Congrats!!');
+						location.reload();
+					}
 				}
 
 				renderer.render( scene, camera );
