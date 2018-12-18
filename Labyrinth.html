@@ -59,11 +59,11 @@
 		</style>
 	</head>
 	<body>
-		<script src="../three.js"></script>
-		<script src="../lib/examples/js/controls/PointerLockControls.js"></script>
-		<script src="../lib/examples/js/loaders/OBJLoader.js"></script>
-		<script src="../lib/examples/js/loaders/MTLLoader.js"></script>
-		<script src="../lib/examples/js/loaders/DDSLoader.js"></script>
+		<script src="build/three.js"></script>
+		<script src="controls/PointerLockControls.js"></script>
+		<script src="loaders/OBJLoader.js"></script>
+		<script src="loaders/MTLLoader.js"></script>
+		<script src="loaders/DDSLoader.js"></script>
 		<script src="loadGhost.js"></script>
 
 		<div id="blocker">
@@ -301,7 +301,7 @@
 
 				//boxGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
 				var boxGeometry2 = new THREE.BoxBufferGeometry( 2, 40, 20 );
-				var texture = new THREE.TextureLoader().load( '../three.js-dev/examples/textures/crate.gif' );
+				var texture = new THREE.TextureLoader().load( 'crate.gif' );
 				var material2 = new THREE.MeshBasicMaterial( { map: texture } );
 				//creating box
 
