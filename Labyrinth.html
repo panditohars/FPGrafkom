@@ -504,7 +504,7 @@
 
 					if ( between(Math.round(ghost.position.z), Math.round(controls.getObject().position.z)-6, Math.round(controls.getObject().position.z)+6) && 
 					between(Math.round(ghost.position.x), Math.round(controls.getObject().position.x)-6, Math.round(controls.getObject().position.x)+6)){
-						alert('aw');
+						alert('Mengenai Musuh : Kalah');
 						location.reload();
 					}
 
@@ -516,7 +516,7 @@
 
 						if ( between(Math.round(ghostList[i].position.z), Math.round(controls.getObject().position.z)-6, Math.round(controls.getObject().position.z)+6) && 
 							between(Math.round(ghostList[i].position.x), Math.round(controls.getObject().position.x)-6, Math.round(controls.getObject().position.x)+6)){
-								alert('Aw!!');
+								alert('Mengenai Musuh : Kalah');
 								location.reload();
 							}
 					}
@@ -538,7 +538,7 @@
 					thetaVmove += 0.2;
 					// console.log(controls.getObject().position.x);
 					if (controls.getObject().position.z > 400 && controls.getObject().position.x > 400) {
-						alert('Congrats!!');
+						alert('Berhasil mencapai finish, Selamat!');
 						location.reload();
 					}
 				}
