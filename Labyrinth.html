@@ -245,7 +245,26 @@
 				scene.add(sky);
 
 				// floor
-
+                // jpg tekstur
+                ///*
+                //a
+                var geometry = new THREE.PlaneGeometry( 1000, 1000, 10, 10 );
+                geometry.rotateX( - Math.PI / 2 );
+                
+                var floorTexture = new THREE.TextureLoader().load( "../lib/examples/textures/floors/FloorsCheckerboard_S_Diffuse.jpg");
+                
+                floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+                
+                floorTexture.repeat.set(20, 20);
+                
+                var material = new THREE.MeshBasicMaterial({map: floorTexture}), mesh = new THREE.Mesh( geometry, material );
+                
+                scene.add( mesh );
+                //*/
+                //a
+                
+                /*
+                //a
 				var floorGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 100, 100 );
 				floorGeometry.rotateX( - Math.PI / 2 );
 
@@ -283,7 +302,9 @@
 
 				var floor = new THREE.Mesh( floorGeometry, floorMaterial );
 				scene.add( floor );
-
+                */
+                //a
+                
 				// objects
 
 				var boxGeometry = new THREE.BoxBufferGeometry( 20, 40, 2 );
