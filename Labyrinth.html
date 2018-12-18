@@ -287,8 +287,8 @@
 				// objects
 
 				var boxGeometry = new THREE.BoxBufferGeometry( 20, 40, 2 );
-				boxGeometry = boxGeometry.toNonIndexed(); // ensure each face has unique vertices
-
+				/*boxGeometry = boxGeometry.toNonIndexed(); // ensure each face has unique vertices
+			
 				position = boxGeometry.attributes.position;
 				colors = [];
 
@@ -297,19 +297,18 @@
 					color.setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
 					colors.push( color.r, color.g, color.b );
 
-				}
+				}*/
 
-				boxGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-				
+				//boxGeometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+				var boxGeometry2 = new THREE.BoxBufferGeometry( 2, 40, 20 );
+				var texture = new THREE.TextureLoader().load( '../three.js-dev/examples/textures/crate.gif' );
+				var material2 = new THREE.MeshBasicMaterial( { map: texture } );
 				//creating box
 
 				//outer z based warna warni
 				for ( var i = 1; i < 20; i ++ ) {
 
-					var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-					boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-
-					var box = new THREE.Mesh( boxGeometry, boxMaterial );
+					var box = new THREE.Mesh( boxGeometry, material2 );
 					box.position.x = i*20;
 					box.position.y = 0;
 					box.position.z = 1;
@@ -323,10 +322,7 @@
 				for(j=1; j<=9;j++){
 					for ( var i = 0	; i <= 20; i ++ ) {
 						if(i == 3 || i == 7 || i == 9 || i == 12 || i == 16) continue;
-						var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-						boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-
-						var box = new THREE.Mesh( boxGeometry, boxMaterial );
+						var box = new THREE.Mesh( boxGeometry, material2 );
 						box.position.x = i*20;
 						box.position.y = 0;
 						box.position.z = j*40;
@@ -340,10 +336,7 @@
 				//outer z based 2 warna warni
 				for ( var i = 0; i < 19; i ++ ) {
 
-					var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-					boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-
-					var box = new THREE.Mesh( boxGeometry, boxMaterial );
+					var box = new THREE.Mesh( boxGeometry, material2 );
 					box.position.x = i*20;
 					box.position.y = 0;
 					box.position.z = 400;
@@ -352,15 +345,11 @@
 					objects.push( box );
 
 				}
-				boxGeometry2 = new THREE.BoxBufferGeometry( 2, 40, 20 );
 				
 				//outer x based hitam
 				for ( var i = 2; i <= 20; i ++ ) {
-					
-					var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-					boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
 
-					var box = new THREE.Mesh( boxGeometry2, boxMaterial );
+					var box = new THREE.Mesh( boxGeometry2, material2 );
 					box.position.x = 0;
 					box.position.y = 0;
 					box.position.z = i*20;
@@ -375,10 +364,8 @@
 					if(j==6||j==8) continue;
 					for ( var i = 0; i <= 18; i ++ ) {
 						if(i == 1 || i == 5 || i == 11 || i == 15) continue ;
-						var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-						boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-
-						var box = new THREE.Mesh( boxGeometry2, boxMaterial );
+						
+						var box = new THREE.Mesh( boxGeometry2, material2 );
 						box.position.x = j*40;
 						box.position.y = 0;
 						box.position.z = i*20;
@@ -392,10 +379,8 @@
 				//outer x based hitam
 				for ( var i = 0; i <= 19; i ++ ) {
 					
-					var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-					boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+					var box = new THREE.Mesh( boxGeometry2, material2 );
 
-					var box = new THREE.Mesh( boxGeometry2, boxMaterial );
 					box.position.x = 380;
 					box.position.y = 0;
 					box.position.z = i*20;
